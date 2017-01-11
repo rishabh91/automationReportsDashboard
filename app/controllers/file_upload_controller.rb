@@ -11,15 +11,23 @@ class FileUploadController < ApplicationController
   		@date = Date.parse(params[:start_date])
   		if @module_name and uploaded_io
   			@uploaded_file_name = uploaded_io.original_filename
+  			
+  			if uploaded_io.content_type == "text/html"
   
-  			File.open(Rails.root.join('public', 'upload', uploaded_io.original_filename), 'wb') do |file|
-    			file.write(uploaded_io.read)
+  				File.open(Rails.root.join('public', 'upload', uploaded_io.original_filename), 'wb') do |file|
+    				file.write(uploaded_io.read)
+  				end
+  			else 
+  				flash.now[:error] = "Only supports html files, You sure you have the right report file from freshservice automation?"
+  				render "new"
+  				return false 
   			end
 
   			report_details = parse_file
-  			@errors = report_details["failed_desc"]
+  			
   			
   			if !report_details.blank?
+  				@errors = report_details["failed_desc"]
 	  			report = Report.new
 	  			report.module = @module_name
 	  		  	report.depdate = @date
