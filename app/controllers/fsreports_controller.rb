@@ -8,8 +8,8 @@ class FsreportsController < ApplicationController
   def get_data
   	@module = params[:module]
   	if @module
-  		startdate = Date.parse(params[:start_date])
-  		enddate = Date.parse(params[:end_date])
+  		startdate = Date.strptime(params[:start_date],'%m/%d/%Y')
+  		enddate = Date.strptime(params[:end_date],'%m/%d/%Y')
   		@error_message = String.new
   		if startdate <= enddate
   			if @module == "All"

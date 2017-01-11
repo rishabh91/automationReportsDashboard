@@ -14,7 +14,7 @@ class FileUploadController < ApplicationController
 
  	 	@module_name = params[:module]
   		uploaded_io = params[:file]
-  		@date = Date.parse(params[:start_date])
+  		@date = Date.strptime(params[:start_date],'%m/%d/%Y')
   		if @module_name and uploaded_io
   			@uploaded_file_name = uploaded_io.original_filename
   			
