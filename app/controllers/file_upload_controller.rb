@@ -7,6 +7,11 @@ class FileUploadController < ApplicationController
  
 	end
 	def show_data
+		if Dir.exists?(Rails.root.join('upl'))
+		else
+			Dir.mkdir(Rails.root.join('upl'))
+		end
+
  	 	@module_name = params[:module]
   		uploaded_io = params[:file]
   		@date = Date.parse(params[:start_date])
@@ -15,7 +20,7 @@ class FileUploadController < ApplicationController
   			
   			if uploaded_io.content_type == "text/html"
   
-  				File.open(Rails.root.join('public', 'upload', uploaded_io.original_filename), 'wb') do |file|
+  				File.open(Rails.root.join('upl',  uploaded_io.original_filename), 'wb') do |file|
     				file.write(uploaded_io.read)
   				end
   			else 
@@ -25,11 +30,11 @@ class FileUploadController < ApplicationController
   			end
 
   			report_details = parse_file
-  			
-  			
-  			if !report_details.blank?
+  			if report_details.has_key?("failed_desc")
   				@errors = report_details["failed_desc"]
-	  			report = Report.new
+  			end
+  			if !report_details.blank?
+  				report = Report.new
 	  			report.module = @module_name
 	  		  	report.depdate = @date
 	  			report.passed = report_details["pass"]
@@ -52,7 +57,7 @@ class FileUploadController < ApplicationController
 private
 	def parse_file
 		begin
-			doc = Nokogiri::HTML(File.open(Rails.root.join('public','upload',@uploaded_file_name)))
+			doc = Nokogiri::HTML(File.open(Rails.root.join('upl',@uploaded_file_name)))
 			tables = doc.xpath("//table")[0]
 			parsed = {}
 			failed_desc =[]
@@ -76,7 +81,7 @@ private
 		end
 	end
 	def delete_uploaded_file
-  		FileUtils.rm(Rails.root.join('public','upload',@uploaded_file_name))
+  		FileUtils.rm(Rails.root.join('upl',@uploaded_file_name))
 	end
 
 
