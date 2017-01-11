@@ -1,0 +1,33 @@
+
+<% provide(:title, "Upload Succesful") %>
+<div class="row">
+<div class = "col-md-6 col-md-offset-3 ">
+<h2> <%= @module_name %> Report File Saved Successfully<br>
+Deployment Date: <%= @date %> <br>
+</h2>
+</div>
+</div>
+<h2> <%= @module_name %> Failed Cases </h2>
+<table class="table" id="failuredata">
+  <thead class="head-inverse">
+    <tr>
+      <th>TestCase</th>
+      <th>Failure Reason</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% if !@error.blank? %>
+    <% @errors.each do |error| %>
+      <tr>
+        <td><%= "#{error[0][1..-1]}" %></td>
+          <td><%=  error[1] %> </td>
+       </tr>
+     <% end %>
+     <%end %>
+  </tbody>
+</table>
+<label for="Link">Want to upload another report?</label> <br>
+<li><%= link_to "Upload",   upload_path %></li>
+

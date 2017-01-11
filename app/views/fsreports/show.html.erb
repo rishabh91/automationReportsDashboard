@@ -1,0 +1,29 @@
+<% provide(:title, "Reports") %>
+<h1>Enter the details to fetch report</h1>
+<div class="row">
+<div class = "col-md-6 col-md-offset-3 ">
+<%= form_tag url_for(:controller => 'fsreports', :action => 'get_data')  do %>
+<label for="Module">Pick Module Name</label> <br>
+ <%= select_tag 'module', options_for_select(["...","All","Admin","API","Changes","CMDB","Contracts","Dashboard","Elasticsearch","Problems","Releases","Reports","Solution","Tickets"], "...") ,class: 'form-control'%> <br>
+
+<%= label_tag 'From Start Date'%>
+
+ <%= text_field_tag :start_date, Time.now.strftime("%m/%d/%Y"), class: 'form-control' ,:required => true%><br><br>
+
+ 
+  <%= label_tag 'End Date' %>
+ <%= text_field_tag :end_date, Time.now.strftime("%m/%d/%Y") ,class: 'form-control',:required => true%><br><br>
+
+  <%= submit_tag "Submit", class: "btn btn-lg btn-primary" %><br>
+<% end %>
+
+</div>
+</div>
+
+<script type="text/javascript">
+   $(document).ready(function(){
+    $('#start_date').datepicker();
+    $('#end_date').datepicker();
+  });
+
+</script>
