@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   get 'home' => 'home#about'
   get 'upload' => 'file_upload#new'
   get 'report' => 'fsreports#show'
-  match "/404", :to => "errors#not_found", :via => :all
-  match "/500", :to => "errors#internal_server_error", :via => :all
+  
 
   #get 'file_upload/new'
   resources :fsreports do 
