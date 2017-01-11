@@ -1,7 +1,8 @@
+require 'nokogiri'
+require 'date'
 class FileUploadController < ApplicationController
 	
-	require 'nokogiri'
-	require 'date'
+	
   	def new
  
 	end
