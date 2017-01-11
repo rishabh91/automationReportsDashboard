@@ -1,5 +1,6 @@
+require 'date'
 class FsreportsController < ApplicationController
-	require 'Date'
+	
   def index
   	#@report_object = 
   end
