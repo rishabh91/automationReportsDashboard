@@ -7,6 +7,7 @@ class FileUploadController < ApplicationController
  
 	end
 	def show_data
+		#this part right here is just to make it work in heroku environment
 		if Dir.exists?(Rails.root.join('upl'))
 		else
 			Dir.mkdir(Rails.root.join('upl'))
