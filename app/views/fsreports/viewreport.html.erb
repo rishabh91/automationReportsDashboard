@@ -21,7 +21,7 @@
     <% @failures.each do |error| %>
         <% error.each do |err| %>
       <tr>
-        <td><%= "#{err[0][1..-1]}" %></td>
+        <td><%= "#{err[0].gsub(/^[1234567890]*/, "")}" %></td>
           <td><%=  err[1] %> </td>
        </tr>
      <% end %>

@@ -21,7 +21,7 @@ Deployment Date: <%= @date %> <br>
   <% if !@errors.blank? %>
     <% @errors.each do |error| %>
       <tr>
-        <td><%= "#{error[0][1..-1]}" %></td>
+        <td><%= "#{error[0].gsub(/^[1234567890]*/, "")}" %></td>
           <td><%=  error[1] %> </td>
        </tr>
      <% end %>
